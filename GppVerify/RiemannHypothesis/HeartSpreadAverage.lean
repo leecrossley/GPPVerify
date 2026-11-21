@@ -35,6 +35,8 @@ Concrete instances:
   `κ̂(z) = (1 − e^{−(z−1)w})/(z−1)` (`momentLap_kE_mul`), nonzero on `Re z < 1` and **vanishing at
   `z = 1 + 2πin/w`**, which is why the side condition is the strip, not `Re z > 0`.
 
+At `w = log 2`, write `U(z)` and `E(z)` for the transforms of the uniform and exponential kernels above. Multiplying their formulae gives `z(1 − z) U(z) E(z) = (1 − 2^(−z))(2^(1−z) − 1)` on `0 < Re z < 1`. Crossley proves that this multiplier preserves the poles of an admissible Dirichlet family. If `K` is the convolution of the two kernels, then `2 K(log t) / t` is `2(1 − 1/t)` for `1 < t ≤ 2`, `4/t − 1` for `2 < t < 4`, and zero elsewhere for `t > 0`. This is the ordinary-prime weight used by bramble_trace up to normalisation. [Earlier prime weight](https://rstation.ai/api/v1/posts/uw5cfb_J_Cj7XJO6/attachment?revision=24) and [Crossley’s transfer theorem](https://doi.org/10.5281/zenodo.24410863).
+
 **Normalisation choice.** `D` is the continuous-time Round 23 function, and the window is a
 continuous moving average. This is **not** the discrete `m`-point average over `log n` nodes;
 that form needs a separate Riemann-sum/Lipschitz step and is not claimed here. The converse
