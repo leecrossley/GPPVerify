@@ -30,12 +30,9 @@ Concrete instances:
 * uniform kernel `k = 1_{[0,w]}` (`F13_uniform_xiE_ne_zero`, `F13_uniform_riemannZeta_ne_zero`):
   `κ̂(z) = (1 − e^{−wz})/z` (`momentLap_kU_mul`), nonzero on `Re z > 0` (`momentLap_kU_ne_zero`);
   the hypothesis becomes `∫_{L−w}^{L} D ≥ −C e^{εL}`.
-* spread-weight kernel `k(u) = eᵘ` on `[0,w]` (`w = log 2` is Alpöge's spread window;
-  `F13_expKernel_xiE_ne_zero`, `F13_expKernel_riemannZeta_ne_zero`):
-  `κ̂(z) = (1 − e^{−(z−1)w})/(z−1)` (`momentLap_kE_mul`), nonzero on `Re z < 1` and **vanishing at
-  `z = 1 + 2πin/w`**, which is why the side condition is the strip, not `Re z > 0`.
+* For the spread-weight kernel `k(u) = eᵘ` on `[0,w]`, the transform away from `z = 1` is `(1 − e^{−(z−1)w})/(z−1)` (`momentLap_kE_mul`). At `z = 1` its value is `w`. For positive `w` its zeros are `1 + 2πin/w` for nonzero integers `n`. The choice `w = log 2` gives Alpöge’s spread window (`F13_expKernel_xiE_ne_zero`, `F13_expKernel_riemannZeta_ne_zero`).
 
-At `w = log 2`, write `U(z)` and `E(z)` for the transforms of the uniform and exponential kernels above. Multiplying their formulae gives `z(1 − z) U(z) E(z) = (1 − 2^(−z))(2^(1−z) − 1)` on `0 < Re z < 1`. Crossley proves that this multiplier preserves the poles of an admissible Dirichlet family. If `K` is the convolution of the two kernels, then `2 K(log t) / t` is `2(1 − 1/t)` for `1 < t ≤ 2`, `4/t − 1` for `2 < t < 4`, and zero elsewhere for `t > 0`. This is the ordinary-prime weight used by bramble_trace up to normalisation. [Earlier prime weight](https://rstation.ai/api/v1/posts/uw5cfb_J_Cj7XJO6/attachment?revision=24) and [Crossley’s transfer theorem](https://doi.org/10.5281/zenodo.24410863).
+At `w = log 2`, write `U(z)` and `E(z)` for the transforms of the uniform and exponential kernels above. Multiplying their formulae gives `z(1 − z) U(z) E(z) = (1 − 2^(−z))(2^(1−z) − 1)` on `0 < Re z < 1`. Crossley proves that this multiplier preserves the poles of an admissible Dirichlet family in this open strip. If `K` is the convolution of the two kernels, then `2 K(log t) / t` is `2(1 − 1/t)` for `1 < t ≤ 2`, `4/t − 1` for `2 < t < 4`, and zero elsewhere for `t > 0`. This is the ordinary-prime weight used by bramble_trace up to normalisation. [Earlier prime weight](https://rstation.ai/api/v1/posts/uw5cfb_J_Cj7XJO6/attachment?revision=24) and [Crossley’s transfer theorem](https://doi.org/10.5281/zenodo.24410863).
 
 **Normalisation choice.** `D` is the continuous-time Round 23 function, and the window is a
 continuous moving average. This is **not** the discrete `m`-point average over `log n` nodes;
@@ -751,9 +748,7 @@ theorem momentLap_kE_mul {w : ℝ} (hw : 0 ≤ w) (z : ℂ) (hz : z - 1 ≠ 0) :
   field_simp
   ring_nf
 
-/-- For `w > 0` the `eᵘ`-kernel transform is nonvanishing on the strip `Re z < 1`
-(`|e^{−(z−1)w}| = e^{(1−Re z)w} > 1`).  It **does** vanish on `Re z = 1` (at
-`z = 1 + 2πin/w`), so the side condition must be stated on the strip, not on `Re z > 0`. -/
+/-- For `w > 0` the exponential kernel transform has no zeros on `Re z < 1`, since `|e^{−(z−1)w}| = e^{(1−Re z)w} > 1` there. On `Re z = 1` its zeros are `1 + 2πin/w` for nonzero integers `n`. At `z = 1` the integrand is one throughout `[0,w]`, so the transform equals `w`. -/
 theorem momentLap_kE_ne_zero {w : ℝ} (hw : 0 < w) (z : ℂ) (hz : z.re < 1) :
     momentLap (kE w) 0 z ≠ 0 := by
   have hz1 : z - 1 ≠ 0 := fun h => by
